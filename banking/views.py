@@ -163,10 +163,10 @@ class TransferView(APIView):
         try:
             receiver_account = BankAccount.objects.get(user=receiver)
         except BankAccount.DoesNotExist:
-            return Response({"error": "Receiver account not found"})
+            return Response({"error": "Receiver bank account not found"})
 
         # ❗ Check balance
-        if sender_account.balance < amount:
+        if sender_account.balance <= amount:
             return Response({"error": "Insufficient balance"})
 
         # 💸 TRANSFER LOGIC
